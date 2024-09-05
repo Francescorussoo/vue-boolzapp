@@ -55,6 +55,15 @@ createApp({
 
             this.currentContact.messages.push(message);
             this.newMessage = '';
+
+            setTimeout(() => {
+                const autoReply = {
+                    text: 'ok',
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    from: 'contact'
+                };
+                this.currentContact.messages.push(autoReply);
+            }, 1000);
         },
         messageClass(message) {
             return message.from === 'user' ? 'user-message' : 'contact-message';
