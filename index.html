@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolzapp</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="chat-container">
+            <div class="contacts">
+                <input type="text" v-model="searchTerm" placeholder="Cerca o inizia una nuova chat" />
+                <ul>
+                    <li v-for="contact in filteredContacts" :key="contact.id" @click="selectContact(contact)">
+                        <img :src="contact.image" alt="Avatar" />
+                        <div>
+                            <h4>{{ contact.name }}</h4>
+                            <p>Ultimo messaggio inviato</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="chat">
+                <div class="chat-header">
+                    <div class="chat-header-content">
+                        <img v-if="currentContact" :src="currentContact.image" alt="Avatar" class="chat-avatar" />
+                        <h3>{{ currentContact ? currentContact.name : 'Seleziona un contatto' }}</h3>
+                    </div>
+                </div>
+                <div class="chat-messages">
+                    <div v-for="message in currentMessages" :key="message.time" :class="messageClass(message)">
+                        {{ message.text }}
+                        <span class="message-time">{{ message.time }}</span>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" v-model="newMessage" @keyup.enter="sendMessage" placeholder="Scrivi un messaggio" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+</html>
